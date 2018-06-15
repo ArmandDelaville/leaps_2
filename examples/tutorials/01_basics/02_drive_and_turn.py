@@ -24,12 +24,15 @@ from cozmo.util import degrees, distance_mm, speed_mmps
 
 
 def cozmo_program(robot: cozmo.robot.Robot):
-    # Drive forwards for 150 millimeters at 50 millimeters-per-second.
-    robot.drive_straight(distance_mm(150), speed_mmps(50)).wait_for_completed()
+    counter = 0
 
-    # Turn 90 degrees to the left.
-    # Note: To turn to the right, just use a negative number.
-    robot.turn_in_place(degrees(90)).wait_for_completed()
+    while counter != 100:
+        # Drive forwards for 150 millimeters at 50 millimeters-per-second.
+        robot.drive_straight(distance_mm(100), speed_mmps(50)).wait_for_completed()
+
+        robot.turn_in_place(degrees(90), speed=cozmo.util.Angle(0.5)).wait_for_completed()
+
+        counter += 1
 
 
 cozmo.run_program(cozmo_program)
