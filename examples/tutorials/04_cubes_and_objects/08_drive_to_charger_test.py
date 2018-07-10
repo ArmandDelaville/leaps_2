@@ -32,17 +32,21 @@ def drive_to_charger(robot):
 
     # If the robot was on the charger, drive them forward and clear of the charger
     if robot.is_on_charger:
+        print("lol, already on the charger mate, don't f with me")
         # drive off the charger
         robot.drive_off_charger_contacts().wait_for_completed()
         robot.drive_straight(distance_mm(100), speed_mmps(50)).wait_for_completed()
+        print('be ready for an awesome 180 turn trick')
         # Start moving the lift down
         robot.move_lift(-3)
         # turn around to look at the charger
         robot.turn_in_place(degrees(180)).wait_for_completed()
+        print('suprise I didnt expect it to be here, seriously')
         # Tilt the head to be level
         robot.set_head_angle(degrees(0)).wait_for_completed()
         # wait half a second to ensure Cozmo has seen the charger
         time.sleep(0.5)
+        print('I am not THAT stupid u know?')
         # drive backwards away from the charger
         robot.drive_straight(distance_mm(-60), speed_mmps(50)).wait_for_completed()
 
@@ -52,7 +56,6 @@ def drive_to_charger(robot):
     # see if Cozmo already knows where the charger is
     if robot.world.charger:
         if robot.world.charger.pose.is_comparable(robot.pose):
-            print("Cozmo already knows where the charger is!")
             charger = robot.world.charger
         else:
             # Cozmo knows about the charger, but the pose is not based on the

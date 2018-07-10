@@ -45,12 +45,22 @@ def handle_object_moving_stopped(evt, **kw):
     print("Object %s stopped moving: duration=%.1f seconds" %
           (evt.obj.object_id, evt.move_duration))
 
+def cube_observed(evt, **kwargs):
+    print('cube found')
+    print("Object %s seen" %
+          evt.obj.object_id)
+
+    if type(evt.obj) == cozmo.objects.LightCube:
+
+        print(evt.obj.is_connected)
+
 
 def cozmo_program(robot: cozmo.robot.Robot):
     # Add event handlers that will be called for the corresponding event
     robot.add_event_handler(cozmo.objects.EvtObjectMovingStarted, handle_object_moving_started)
     robot.add_event_handler(cozmo.objects.EvtObjectMoving, handle_object_moving)
     robot.add_event_handler(cozmo.objects.EvtObjectMovingStopped, handle_object_moving_stopped)
+    robot.add_event_handler(cozmo.objects.EvtObjectObserved, cube_observed)
 
     # keep the program running until user closes / quits it
     print("Press CTRL-C to quit")

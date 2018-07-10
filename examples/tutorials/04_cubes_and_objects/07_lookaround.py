@@ -53,7 +53,6 @@ def cozmo_program(robot: cozmo.robot.Robot):
     anim = robot.play_anim_trigger(cozmo.anim.Triggers.BlockReact)
     anim.wait_for_completed()
 
-
     action = robot.pickup_object(cube)
     print("got action", action)
     result = action.wait_for_completed(timeout=30)
@@ -69,6 +68,3 @@ def cozmo_program(robot: cozmo.robot.Robot):
     anim = robot.play_anim_trigger(cozmo.anim.Triggers.MajorWin)
     cube.set_light_corners(None, None, None, None)
     anim.wait_for_completed()
-
-
-cozmo.run_program(cozmo_program)
